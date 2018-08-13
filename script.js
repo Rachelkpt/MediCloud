@@ -31,10 +31,13 @@ drone.on('open', error => {
     if (error) {
       onError(error);
     }
-  });
+    });
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
+    if (members.length >= 3) {
+      return alert('The room is full');
+    }
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
